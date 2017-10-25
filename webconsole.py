@@ -41,6 +41,8 @@ class Application(tornado.web.Application):
             (r"/user/create", UserCreateHandler),
             (r"/user/login", UserLoginHandler),
             (r"/user/logout", UserLogoutHandler),
+            (r"/demo", DemoHandler),
+
         ]
         settings = dict(
             app_title=u"Ceph web console",
@@ -71,6 +73,13 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def any_user_exists(self):
         return bool(self.db.get("SELECT * FROM users LIMIT 1"))
+
+
+
+class DemoHandler(BaseHandler):
+    def get(self):        
+        self.render("index.html")
+
 
 
 class HomeHandler(BaseHandler):
