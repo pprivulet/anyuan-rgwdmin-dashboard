@@ -41,7 +41,7 @@ class Application(tornado.web.Application):
             (r"/user/create", UserCreateHandler),
             (r"/user/login", UserLoginHandler),
             (r"/user/logout", UserLogoutHandler),
-            (r"/demo", DemoHandler),
+            (r"/userMgm", UserMgmHandler),
 
         ]
         settings = dict(
@@ -76,9 +76,11 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
 
-class DemoHandler(BaseHandler):
-    def get(self):        
-        self.render("index.html")
+class UserMgmHandler(BaseHandler):
+    def get(self):
+        user = self.get_current_user() 
+        print user        
+        self.render("index.html", user=user)
 
 
 
